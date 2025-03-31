@@ -7,8 +7,8 @@ const Container: FC<{ children: ReactNode }> = ({ children }) => {
     <View
       style={{
         flex: 1,
-        paddingTop: StatusBar.currentHeight,
-        paddingHorizontal: 16,
+        marginTop: StatusBar.currentHeight,
+        padding: 16,
         backgroundColor: Colors.background,
       }}
     >
