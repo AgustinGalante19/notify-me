@@ -8,9 +8,12 @@ import Button from '@/components/ui/button';
 import Card from './card';
 import Subscription from '@/types/Subscription';
 
-const Consumption: FC<{ subscriptions: Subscription[] }> = ({
-  subscriptions,
-}) => {
+interface ConsumptionsProps {
+  subscriptions: Subscription[];
+  isLoading?: boolean;
+}
+
+const Consumption: FC<ConsumptionsProps> = ({ subscriptions }) => {
   const stats = useMemo(() => {
     return {
       totalMount: subscriptions.reduce(

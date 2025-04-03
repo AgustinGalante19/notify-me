@@ -5,6 +5,8 @@ import Consumption from '@/components/home/consumption';
 import { useEffect, useState } from 'react';
 import Subscription from '@/types/Subscription';
 import fetcher from '@/services/fetcher';
+import ErrorAlert from '@/components/ui/error-alert';
+import { useErrorAlert } from '@/hooks/useErrorAlert';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -16,11 +18,21 @@ Notifications.setNotificationHandler({
 
 export default function App() {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { changeErrorMessage, closeAlert, errorMessage, isShowed, showAlert } =
+    useErrorAlert();
 
   useEffect(() => {
     const getSubscriptions = async () => {
-      const subs = await fetcher('/subscriptions');
-      setSubscriptions(subs);
+      try {
+        setIsLoading(true);
+        const subs = await fetcher('/subscriptions');
+        setSubscriptions(subs);
+      } catch {
+        changeErrorMessage('Unexpected error getting subscriptions');
+        showAlert();
+      }
     };
     getSubscriptions();
   }, []);
@@ -28,7 +40,12 @@ export default function App() {
   return (
     <Container>
       <Header />
-      <Consumption subscriptions={subscriptions} />
+      <ErrorAlert
+        message={errorMessage}
+        show={isShowed}
+        handleCloseAlert={closeAlert}
+      />
+      <Consumption subscriptions={subscriptions} isLoading={isLoading} />
     </Container>
   );
 }
