@@ -1,14 +1,26 @@
-import React from 'react';
-import Card from './card';
-import Typography from '../ui/typography';
+import { FC, useMemo } from 'react';
 import { View } from 'react-native';
-
+import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Colors } from '@/constants/Colors';
-import Button from '../ui/button';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import Typography from '@/components/ui/typography';
+import Button from '@/components/ui/button';
+import Card from './card';
+import Subscription from '@/types/Subscription';
 
-const Consumption = () => {
+const Consumption: FC<{ subscriptions: Subscription[] }> = ({
+  subscriptions,
+}) => {
+  const stats = useMemo(() => {
+    return {
+      totalMount: subscriptions.reduce(
+        (prev, curr) => prev + Number(curr.amount),
+        0
+      ),
+      subsCount: subscriptions.length,
+    };
+  }, [subscriptions]);
+
   return (
     <View style={{ marginTop: 16 }}>
       <Card>
@@ -36,11 +48,13 @@ const Consumption = () => {
           </View>
           <View>
             <View style={{ flexDirection: 'row', gap: 4 }}>
-              <Typography weight='700'>27.906,25</Typography>
+              <Typography weight='700'>
+                {stats.totalMount.toLocaleString()}
+              </Typography>
               <Typography color={Colors.lightGray}>$</Typography>
             </View>
             <Typography color={Colors.lightGray} size='sm'>
-              5 active subscriptions
+              {stats.subsCount} active subscriptions
             </Typography>
           </View>
         </View>
