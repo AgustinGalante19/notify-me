@@ -1,7 +1,7 @@
 {
   "name": "notify-me",
   "main": "expo-router/entry",
-  "version": "1.0.1.2",
+  "version": "1.0.2",
   "scripts": {
     "start": "expo start",
     "build:android-dev": "eas build --profile development --platform android",
@@ -16,7 +16,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "14.0.2",
+    "@expo/vector-icons": "^14.0.2",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "expo": "~52.0.40",

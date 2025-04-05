@@ -10,7 +10,11 @@ interface ErrorAlertProps {
   handleCloseAlert: () => void;
 }
 
-const ErrorAlert: FC<ErrorAlertProps> = ({ message, show }) => {
+const ErrorAlert: FC<ErrorAlertProps> = ({
+  message,
+  show,
+  handleCloseAlert,
+}) => {
   if (!show) return null;
 
   return (
@@ -25,11 +29,26 @@ const ErrorAlert: FC<ErrorAlertProps> = ({ message, show }) => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        gap: 8,
       }}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-        <Feather name='alert-triangle' size={24} color={Colors.error.light} />
-        <Text style={{ color: Colors.error.light }}>{message}</Text>
+      <Feather name='alert-triangle' size={24} color={Colors.error.light} />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <Text
+          style={{
+            color: Colors.error.light,
+            textOverflow: 'auto',
+          }}
+        >
+          {message}
+        </Text>
       </View>
       <TouchableOpacity
         style={{
@@ -38,12 +57,13 @@ const ErrorAlert: FC<ErrorAlertProps> = ({ message, show }) => {
           borderRadius: 5,
           backgroundColor: Colors.error.light,
         }}
+        onPress={handleCloseAlert}
       >
         <Typography
           color={Colors.error.darker}
           weight='700'
           style={{ letterSpacing: 1 }}
-          size='sm'
+          size='xs'
         >
           CLOSE
         </Typography>
