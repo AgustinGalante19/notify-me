@@ -4,9 +4,10 @@ import Header from '@/components/home/header';
 import Consumption from '@/components/home/consumption';
 import { useEffect, useState } from 'react';
 import Subscription from '@/types/Subscription';
-import fetcher from '@/services/fetcher';
 import ErrorAlert from '@/components/ui/error-alert';
 import { useErrorAlert } from '@/hooks/useErrorAlert';
+import { getSubscriptions } from '@/services/subscriptions';
+import Subscriptions from '@/components/home/subscriptions';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -24,17 +25,19 @@ export default function App() {
     useErrorAlert();
 
   useEffect(() => {
-    const getSubscriptions = async () => {
+    const getSubs = async () => {
       try {
         setIsLoading(true);
-        const subs = await fetcher('/subscriptions');
+        const subs = await getSubscriptions();
         setSubscriptions(subs);
       } catch {
         changeErrorMessage('Unexpected error getting subscriptions');
         showAlert();
+      } finally {
+        setIsLoading(false);
       }
     };
-    getSubscriptions();
+    getSubs();
   }, []);
 
   return (
@@ -46,6 +49,7 @@ export default function App() {
         handleCloseAlert={closeAlert}
       />
       <Consumption subscriptions={subscriptions} isLoading={isLoading} />
+      <Subscriptions subscriptions={subscriptions} isLoading={isLoading} />
     </Container>
   );
 }
