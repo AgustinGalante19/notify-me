@@ -9,6 +9,7 @@ const Card: FC<{ children: ReactNode }> = ({ children }) => {
         backgroundColor: Colors.secondary,
         borderRadius: 24,
         padding: 16,
+        flex: 1,
       }}
     >
       {children}

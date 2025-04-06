@@ -5,7 +5,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Colors } from '@/constants/Colors';
 import Typography from '@/components/ui/typography';
 import Button from '@/components/ui/button';
-import Card from './card';
+import Card from '../ui/card';
 import Subscription from '@/types/Subscription';
 
 interface ConsumptionsProps {
@@ -25,7 +25,7 @@ const Consumption: FC<ConsumptionsProps> = ({ subscriptions }) => {
   }, [subscriptions]);
 
   return (
-    <View style={{ marginTop: 16 }}>
+    <View style={{ marginTop: 16, height: 180 }}>
       <Card>
         <Typography size='xl' weight='600'>
           Consumptions
