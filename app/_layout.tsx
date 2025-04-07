@@ -27,6 +27,18 @@ export default function RootLayout() {
     <NotificationProvider>
       <Stack>
         <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+        <Stack.Screen
+          name='subscriptions/add'
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='subscriptions/edit'
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='subscriptions/[id]'
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name='+not-found' />
       </Stack>
       <StatusBar style='light' backgroundColor='#000' />

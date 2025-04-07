@@ -7,6 +7,7 @@ import Typography from '@/components/ui/typography';
 import Button from '@/components/ui/button';
 import Card from '../ui/card';
 import Subscription from '@/types/Subscription';
+import { Link, useRouter } from 'expo-router';
 
 interface ConsumptionsProps {
   subscriptions: Subscription[];
@@ -23,6 +24,8 @@ const Consumption: FC<ConsumptionsProps> = ({ subscriptions }) => {
       subsCount: subscriptions.length,
     };
   }, [subscriptions]);
+
+  const router = useRouter();
 
   return (
     <View style={{ marginTop: 16, height: 180 }}>
@@ -64,6 +67,7 @@ const Consumption: FC<ConsumptionsProps> = ({ subscriptions }) => {
         <Button
           title='Add Subscription'
           icon={<AntDesign name='plus' size={20} color={Colors.text} />}
+          onPress={() => router.navigate('/subscriptions/add')}
         />
       </Card>
     </View>

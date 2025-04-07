@@ -1,9 +1,10 @@
-import { Image, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { FC } from 'react';
 import Subscription from '@/types/Subscription';
 import Typography from '../ui/typography';
 import { Colors } from '@/constants/Colors';
 import apiImage from '@/utils/api-image';
+import { useRouter } from 'expo-router';
 
 const monthNames = [
   'Jan',
@@ -26,8 +27,18 @@ const walletColors = {
 };
 
 const SubscriptionItem: FC<{ sub: Subscription }> = ({ sub }) => {
+  const { navigate } = useRouter();
+
   return (
-    <View
+    <TouchableOpacity
+      onPress={() =>
+        navigate({
+          pathname: '/subscriptions/[id]',
+          params: {
+            id: sub.id,
+          },
+        })
+      }
       style={{
         flexDirection: 'row',
         alignItems: 'center',
@@ -76,7 +87,7 @@ const SubscriptionItem: FC<{ sub: Subscription }> = ({ sub }) => {
           </Typography>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
