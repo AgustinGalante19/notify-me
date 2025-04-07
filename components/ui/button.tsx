@@ -1,14 +1,13 @@
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { ReactNode, FC } from 'react';
 import { Colors } from '@/constants/Colors';
 import Typography from './typography';
 
-interface ButtonProps {
+interface ButtonProps extends TouchableOpacityProps {
   title: string | ReactNode;
   icon?: ReactNode;
 }
-
-const Button: FC<ButtonProps> = ({ title, icon }) => {
+const Button: FC<ButtonProps> = ({ title, icon, ...props }) => {
   return (
     <TouchableOpacity
       style={{
@@ -20,6 +19,7 @@ const Button: FC<ButtonProps> = ({ title, icon }) => {
         alignItems: 'center',
         paddingHorizontal: 16,
       }}
+      {...props}
     >
       {icon && <View style={{ alignSelf: 'flex-start' }}>{icon}</View>}
       <Typography color={Colors.text} weight='600' style={{ margin: 'auto' }}>
